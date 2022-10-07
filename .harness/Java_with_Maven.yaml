@@ -36,7 +36,7 @@ pipeline:
                     shell: Sh
                     command: |-
                       echo "Welcome to Harness CI"
-
+                      <+account.companyName>
                       <+pipeline.name>
                       echo "Good Bye!"
                     reports:
