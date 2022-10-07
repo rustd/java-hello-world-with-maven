@@ -31,8 +31,20 @@ pipeline:
                   name: Hello
                   identifier: Hello
                   spec:
+                    connectorRef: account.harnessImage
+                    image: alpine
                     shell: Sh
                     command: echo "Welcome to Harness CI"
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - "***./***.xml"
+                    envVariables:
+                      env1: envvalue
+                    outputVariables:
+                      - name: output1
+                  timeout: 1m 40s
               - step:
                   type: RunTests
                   name: foo
