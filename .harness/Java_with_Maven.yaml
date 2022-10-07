@@ -33,3 +33,24 @@ pipeline:
                   spec:
                     shell: Sh
                     command: echo "Welcome to Harness CI"
+              - step:
+                  type: RunTests
+                  name: foo
+                  identifier: foo
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: alpine
+                    language: Java
+                    buildTool: Maven
+                    args: qqq
+                    packages: qq
+                    runOnlySelectedTests: true
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - "***./***"
+                    outputVariables:
+                      - name: output1
+                  description: fs
+                  timeout: 1m 40s
