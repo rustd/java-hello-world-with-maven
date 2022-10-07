@@ -44,6 +44,7 @@ pipeline:
                       env1: envvalue
                     outputVariables:
                       - name: output1
+                      - name: output22
                   timeout: 1m 40s
               - step:
                   type: RunTests
