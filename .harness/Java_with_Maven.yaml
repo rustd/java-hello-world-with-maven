@@ -34,14 +34,16 @@ pipeline:
                     connectorRef: account.harnessImage
                     image: alpine
                     shell: Sh
-                    command: echo "Welcome to Harness CI"
+                    command: |-
+                      echo "Welcome to Harness CI"
+
+                      <+pipeline.name>
+                      echo "Good Bye!"
                     reports:
                       type: JUnit
                       spec:
                         paths:
                           - "***./***.xml"
-                    envVariables:
-                      env1: envvalue
                     outputVariables:
                       - name: output1
                       - name: output22
