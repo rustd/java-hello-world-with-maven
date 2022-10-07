@@ -26,28 +26,39 @@ pipeline:
             spec: {}
           execution:
             steps:
-              - step:
-                  type: Run
-                  name: Hello
-                  identifier: Hello
-                  spec:
-                    connectorRef: account.harnessImage
-                    image: alpine
-                    shell: Sh
-                    command: |-
-                      echo "Welcome to Harness CI"
-                      <+account.companyName>
-                      <+pipeline.name>
-                      echo "Good Bye!"
-                    reports:
-                      type: JUnit
+              - parallel:
+                  - step:
+                      type: Run
+                      name: Hello
+                      identifier: Hello
                       spec:
-                        paths:
-                          - "***./***.xml"
-                    outputVariables:
-                      - name: output1
-                      - name: output22
-                  timeout: 1m 40s
+                        connectorRef: account.harnessImage
+                        image: alpine
+                        shell: Sh
+                        command: |-
+                          echo "Welcome to Harness CI"
+                          <+account.companyName>
+                          <+pipeline.name>
+                          echo "Good Bye!"
+                        reports:
+                          type: JUnit
+                          spec:
+                            paths:
+                              - "***./***.xml"
+                        outputVariables:
+                          - name: output1
+                          - name: output22
+                      timeout: 1m 40s
+                  - step:
+                      type: Plugin
+                      name: github action
+                      identifier: github_action
+                      spec:
+                        connectorRef: account.harnessImage
+                        image: plugins/githubactions
+                        privileged: true
+                        settings:
+                          uses: calibreapp/image-actions@main
               - step:
                   type: RunTests
                   name: foo
@@ -69,3 +80,15 @@ pipeline:
                       - name: output1
                   description: fs
                   timeout: 1m 40s
+        variables:
+          - name: customstagevar1
+            type: String
+            description: ""
+            value: ""
+  flowControl:
+    barriers: []
+  variables:
+    - name: customvar1
+      type: String
+      description: ""
+      value: ""
