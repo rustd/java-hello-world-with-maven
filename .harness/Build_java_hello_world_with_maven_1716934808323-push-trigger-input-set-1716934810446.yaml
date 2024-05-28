@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_java_hello_world_with_maven_1716934808323-push-trigger-input-set
+  identifier: Build_java_hello_world_with_maven_1716934808323pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: pranavt1
+  pipeline:
+    identifier: Build_java_hello_world_with_maven_1716934808323
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
